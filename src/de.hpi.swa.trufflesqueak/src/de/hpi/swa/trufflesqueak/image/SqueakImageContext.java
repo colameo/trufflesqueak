@@ -621,7 +621,7 @@ public final class SqueakImageContext {
     /* Clear all cache entries (prim 89). */
     public void flushMethodCache() {
         for (int i = 0; i < METHOD_CACHE_SIZE; i++) {
-            methodCache[i] = null; /* Mark it free. */
+            methodCache[i].freeAndRelease();
         }
     }
 
@@ -629,7 +629,7 @@ public final class SqueakImageContext {
     public void flushMethodCacheForSelector(final NativeObject selector) {
         for (int i = 0; i < METHOD_CACHE_SIZE; i++) {
             if (methodCache[i].getSelector() == selector) {
-                methodCache[i] = null; /* Mark it free. */
+                methodCache[i].freeAndRelease();
             }
         }
     }
@@ -638,7 +638,7 @@ public final class SqueakImageContext {
     public void flushMethodCacheForMethod(final CompiledMethodObject method) {
         for (int i = 0; i < METHOD_CACHE_SIZE; i++) {
             if (methodCache[i].getResult() == method) {
-                methodCache[i] = null; /* Mark it free. */
+                methodCache[i].freeAndRelease();
             }
         }
     }

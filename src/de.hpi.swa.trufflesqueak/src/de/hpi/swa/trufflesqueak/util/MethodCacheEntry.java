@@ -34,6 +34,11 @@ public final class MethodCacheEntry {
         result = object;
     }
 
+    public void freeAndRelease() {
+        selector = null; /* Mark it free. */
+        result = null; /* Release the method. */
+    }
+
     public MethodCacheEntry reuseFor(final ClassObject lookupClass, final NativeObject lookupSelector) {
         classObject = lookupClass;
         selector = lookupSelector;
